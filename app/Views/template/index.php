@@ -2,7 +2,16 @@
 <html>
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-  <meta name="" content="">
+  <link rel="icon" href="/Sekolahku.jpg" type="image/jpeg">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <?php if (isset($validation)): ?>
+  <?php if (count($validation->getErrors()) > 0): ?>
+  <meta name="theme-color"content="#ff3232" />
+  <?php endif; ?>
+  <?php else : ?>
+
+  <?php endif; ?>
+  <meta name="theme-color"content="#0c1dff" />
   <link rel="stylesheet" href="/css/bootstrap.min.css">
   <title><?= isset($title)?$title:'' ?></title>
   <style>

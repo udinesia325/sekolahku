@@ -47,7 +47,7 @@ class Siswa extends BaseController {
           'alpha_space' => 'Nama yang anda masukkan tidak benar !'
         ]
       ],
-      'nisn' => 'required|numeric|min_length[6]|max_length[6]',
+      'nisn' => 'required|numeric|min_length[6]|max_length[6]|is_unique[siswa.nisn]',
       'umur' => 'required|numeric|min_length[1]|max_length[2]',
       'kelas' => 'required|numeric|min_length[1]|max_length[2]',
 
@@ -118,5 +118,24 @@ class Siswa extends BaseController {
     session()->setFlashData('pesan', 'Berhasil Menghapus');
     $this->siswaModel->delete($id);
     return redirect()->to('siswa');
+  }
+  public function recycle() {
+    $data = [
+      "title" => "Recycle",
+      "siswa" => $this->siswaModel->onlyDeleted()->findAll()
+    ];
+    return view("siswa/recycle", $data);
+  }
+  public function restore($id) {
+    session()->setFlashData('pesan', "Berhasil Mengembalikan Data Siswa");
+    $this->siswaModel->restore($id);
+    return redirect()->to("/siswa/recycle");
+  }
+  public function permanen($id) {
+
+
+    $this->siswaModel->deletePermanen($id);
+    session()->setFlashData("pesan", "Berhasil Menghapus Secara Permanen");
+    return redirect()->to("/siswa/recycle");
   }
 }

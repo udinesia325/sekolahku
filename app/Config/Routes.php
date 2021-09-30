@@ -54,6 +54,13 @@ $routes->get('/kelas/siswa/(:num)', 'Kelas::siswa/$1');
 //login logout routes
 $routes->get('/login', 'Login::index');
 $routes->get('/logout', 'Login::logout');
+$routes->get("/daftar", "Login::daftar");
+
+
+
+//restore
+$routes->put("/siswa/restore/(:num)", "Siswa::restore/$1");
+$routes->delete("/delete/permanen/(:num)", "Siswa::permanen/$1");
 /*
  * --------------------------------------------------------------------
  * Additional Routing

@@ -53,4 +53,32 @@ class Login extends BaseController
     session()->remove('username');
     return redirect()->to('/login');
   }
+  public function daftar() {
+    $data = [
+      "title" => "Daftar",
+      "valid" => \Config\Services::Validation()
+    ];
+    return view("daftar", $data);
+  }
+
+  public function daftarProses() {
+    if (!$this->validate([
+      'username' => [
+        "rules" => "required|min_length[3]|alpha_space|is_unique[login.username]",
+        "errors" => [
+          "alpha_space" => "Username tidak valid jangan gunakan simbol ataupun angka"
+        ]
+      ],
+      'email' => 'required|valid_email|is_unique[login.email]',
+      'password' => 'required|min_length[8]'
+    ])) {
+      return redirect()->to('/daftar')->withInput();
+    }
+    $post = $this->request->getPost();
+
+    $this->loginModel->daftar($post["username"], strtolower($post["email"]), $post["password"]);
+    session()->setFlashData("pesan", "Silahkan login dengan identitas yang anda gunakan saat mendaftar");
+    return redirect()->to("login");
+  }
+
 }

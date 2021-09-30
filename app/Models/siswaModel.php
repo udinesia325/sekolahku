@@ -12,6 +12,7 @@ class siswaModel extends Model
     'nisn',
     'umur',
     'kelas'];
+  protected $useSoftDeletes = true;
 
   // Dates
   protected $useTimestamps = true;
@@ -26,5 +27,11 @@ class siswaModel extends Model
   }
   public function getCount() {
     return $this->table('siswa')->countAll();
+  }
+  public function restore($id) {
+    return $this->db->query("update siswa set deleted_at = null where id =$id");
+  }
+  public function deletePermanen($id) {
+    return $this->db->query("delete from siswa where id =$id");
   }
 }

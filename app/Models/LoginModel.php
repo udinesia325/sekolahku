@@ -19,5 +19,9 @@ class LoginModel extends Model
     }
     return $this->where('email', $email)->first();
   }
-
+  public function daftar($username, $email, $password) {
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    $this->db->query("INSERT INTO login (username ,email, password)
+    VALUES ('$username','$email','$hashedPassword')");
+  }
 }
