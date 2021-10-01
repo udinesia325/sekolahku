@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Sekolahku
 
 #### aplikasi untuk mengelola data sekolah
